@@ -1,0 +1,42 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  annotations:
+    run.googleapis.com/ingress: internal
+  name: blnk-server
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: '3'
+        autoscaling.knative.dev/minScale: '1'
+        run.googleapis.com/startup-cpu-boost: 'true'
+    spec:
+      containerConcurrency: 80
+      containers:
+      - env:
+        - name: BLNK_DATA_SOURCE_DNS
+          value: postgres://postgres:10325Fil@db.voxxzckailavdegfrgqm.supabase.co:5432/postgres?sslmode=require
+        - name: BLNK_REDIS_DNS
+          value: 34.63.22.56:6379
+        - name: BLNK_SERVER_PORT
+          value: '5001'
+        image: jerryenebeli/blnk:0.11.2
+        ports:
+        - containerPort: 5001
+          name: http1
+        resources:
+          limits:
+            cpu: '1'
+            memory: 1Gi
+        startupProbe:
+          failureThreshold: 3
+          periodSeconds: 10
+          tcpSocket:
+            port: 5001
+          timeoutSeconds: 10
+      serviceAccountName: 438091062981-compute@developer.gserviceaccount.com
+      timeoutSeconds: 600
+  traffic:
+  - latestRevision: true
+    percent: 100

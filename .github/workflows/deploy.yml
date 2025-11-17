@@ -1,0 +1,44 @@
+name: Deploy BLNK Server to Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run services replace service.yaml \
+            --region=us-central1 \
+            --platform=managed
+
+      - name: Update traffic to latest revision
+        run: |
+          gcloud run services update-traffic blnk-server \
+            --region=us-central1 \
+            --to-latest
+
+      - name: Deployment summary
+        run: |
+          echo "✅ BLNK Server deployed successfully!"
+          echo "🌐 Access via APISIX gateway: https://136.111.45.49:19080/ledgers"
+          echo "🔒 Ingress: Internal only"
