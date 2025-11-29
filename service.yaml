@@ -18,12 +18,10 @@ spec:
         - name: BLNK_DATA_SOURCE_DNS
           value: postgres://postgres:10325Fil@db.voxxzckailavdegfrgqm.supabase.co:5432/postgres?sslmode=require
         - name: BLNK_REDIS_DNS
-          value: 34.63.22.56:6379
+          value: redis://:@34.63.22.56:6379/0
         - name: BLNK_SERVER_PORT
           value: '5001'
-        - name: BLNK_CONFIG_STORE
-          value: 'false'
-        image: jerryenebeli/blnk:0.11.2
+        image: jerryenebeli/blnk:latest
         ports:
         - containerPort: 5001
           name: http1
