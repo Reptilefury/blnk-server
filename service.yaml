@@ -22,9 +22,9 @@ spec:
         - name: BLNK_SERVER_PORT
           value: '5001'
         - name: BLNK_TYPESENSE_DNS
-          value: http://typesense.default.svc.cluster.local:8108
+          value: ""
         - name: BLNK_TYPESENSE_API_KEY
-          value: blnk-api-key
+          value: ""
         image: jerryenebeli/blnk:latest
         ports:
         - containerPort: 5001
@@ -34,8 +34,8 @@ spec:
             cpu: '1'
             memory: 1Gi
         startupProbe:
-          failureThreshold: 3
-          periodSeconds: 10
+          failureThreshold: 10
+          periodSeconds: 15
           tcpSocket:
             port: 5001
           timeoutSeconds: 10
