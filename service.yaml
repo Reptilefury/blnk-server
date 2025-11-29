@@ -21,6 +21,10 @@ spec:
           value: redis://:@34.63.22.56:6379/0
         - name: BLNK_SERVER_PORT
           value: '5001'
+        - name: BLNK_TYPESENSE_DNS
+          value: http://typesense:8108
+        - name: BLNK_TYPESENSE_API_KEY
+          value: blnk-api-key
         image: jerryenebeli/blnk:latest
         ports:
         - containerPort: 5001
