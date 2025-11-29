@@ -22,7 +22,7 @@ spec:
         - name: BLNK_SERVER_PORT
           value: '5001'
         - name: BLNK_TYPESENSE_DNS
-          value: https://typesense-fooaa3eima-uc.a.run.app
+          value: http://typesense.default.svc.cluster.local:8108
         - name: BLNK_TYPESENSE_API_KEY
           value: blnk-api-key
         image: jerryenebeli/blnk:latest
