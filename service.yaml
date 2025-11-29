@@ -21,6 +21,8 @@ spec:
           value: 34.63.22.56:6379
         - name: BLNK_SERVER_PORT
           value: '5001'
+        - name: BLNK_CONFIG_STORE
+          value: 'false'
         image: jerryenebeli/blnk:0.11.2
         ports:
         - containerPort: 5001
