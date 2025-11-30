@@ -22,9 +22,9 @@ spec:
         - name: BLNK_SERVER_PORT
           value: '5001'
         - name: BLNK_TYPESENSE_DNS
-          value: ""
+          value: "https://typesense-fooaa3eima-uc.a.run.app"
         - name: BLNK_TYPESENSE_API_KEY
-          value: ""
+          value: "blnk-api-key"
         image: jerryenebeli/blnk:latest
         ports:
         - containerPort: 5001
